@@ -2,6 +2,7 @@
 //  -------
 
 import { parse } from 'https://deno.land/std@0.121.0/flags/mod.ts'
+import { bgWhite, dim, black } from 'https://deno.land/x/std@0.121.0/fmt/colors.ts'
 
 //  Type Definitions
 //  ----------------
@@ -33,8 +34,8 @@ async function parseArguments() {
     }) as cliArguments
 
     //  Extract parameters
-    let from = args.from || args._.shift() || prompt('From: ', '')
-    const to = args.to || args._.shift() || prompt('To: ', '')
+    let from = args.from || args._.shift() || prompt(bgWhite('From: '), '')
+    const to = args.to || args._.shift() || prompt(bgWhite('To: '), '')
 
     //  Handle exceptions
     if (!from) {
@@ -69,4 +70,8 @@ const { from, to, type } = await parseArguments()
 await Deno.symlink(from, to, { type })
 //  ----------------------------------
 
-console.log(`Created Symlink (${type})\nfrom: ${from}\nto: ${to}`)
+console.log(
+    bgWhite(black(` Created Symlink (${type === 'dir' ? '📂' : '📄'} ${type}) \n`)) +
+    `${dim('from:')} ${from}\n` +
+    `${dim('to:')} ${to}`
+)
