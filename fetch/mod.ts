@@ -29,7 +29,7 @@ const { url, headers } = parseArguments()
 //  Make the fetch request to the given URL
 const response = await fetch(url.toString())
 
-//  If the content-type of the response is json then parse as json, otherwise parse as text
+//  If the content-type of the response is json, then parse as json; otherwise parse as text
 const data = (response.headers.get('content-type')?.includes('json'))
     ? response.json()
     : response.text()
