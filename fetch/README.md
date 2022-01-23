@@ -40,6 +40,8 @@ fetch <URL>
 
 | flag        | aliases | description                                           |
 | ----------- | ------- | ----------------------------------------------------- |
-| `--headers` | `-h`    | Display response headers in addition to response body |
+| `--headers` |         | Display response headers in addition to response body |
+| `--method`  |         | Change the HTTP verb (default: `GET`)                 |
+| `--body`    |         | Set the body to send with the request                 |
 
 <!-- TODO: Substitute symlink/mod.ts with actual URL -->
