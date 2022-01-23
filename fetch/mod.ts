@@ -1,5 +1,13 @@
 //  Library
 import { parse } from 'https://deno.land/std@0.121.0/flags/mod.ts'
+import { bold, green, red, yellow, blue, inverse } from 'https://deno.land/x/std@0.121.0/fmt/colors.ts'
+
+//  ----------------
+//  HELPER FUNCTIONS
+//  ----------------
+
+/** Check if number n is between x and y */
+const between = (n: number, x: number, y: number) => x >= n && n < y
 
 //  ---------------
 //  PARSE ARGUMENTS
@@ -47,15 +55,33 @@ const data = (response.headers.get('content-type')?.includes('json'))
 //  SHOW RESULTS
 //  ------------
 
+//  Build the result
+const result = [
+    bold(inverse(' ' + method + ' ')),
+    response.url,
+    function () {
+        //  Color the string based on status code
+        const str = response.status + ' ' + response.statusText
+        if (between(response.status, 200, 300)) {
+            return green(str)
+        } else if (between(response.status, 400, 500)) {
+            return red(str)
+        } else if (between(response.status, 500, 600)) {
+            return yellow(str)
+        } else { return blue(str) }
+    }(),
+].join(' ')
+
 //  Show method url and response
-console.log('\n' + `${method} ${response.url} ${response.status} ${response.statusText}` + '\n')
+console.log('\n' + result + '\n')
 
 //  Show headers if --headers flags was passed
 if (headers) {
+    console.log(inverse(bold(' Headers ')) + '\n')
     for (const [header, value] of response.headers) {
         console.log(header, value)
     }
-    console.log('\n')
+    console.log('\n' + inverse(bold(' Response ')) + '\n')
 }
 
 //  Show response body
