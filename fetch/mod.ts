@@ -56,12 +56,12 @@ const data = (response.headers.get('content-type')?.includes('json'))
 //  ------------
 
 //  Build the result
-const result = [
-    bold(inverse(' ' + method + ' ')),
+const result = inverse([
+    bold(blue(' ' + method + ' ')),
     response.url,
     function () {
         //  Color the string based on status code
-        const str = response.status + ' ' + response.statusText
+        const str = ' ' + response.status + ' ' + response.statusText + ' '
         if (between(response.status, 200, 300)) {
             return green(str)
         } else if (between(response.status, 400, 500)) {
@@ -70,18 +70,18 @@ const result = [
             return yellow(str)
         } else { return blue(str) }
     }(),
-].join(' ')
+].join(' '))
 
 //  Show method url and response
 console.log('\n' + result + '\n')
 
 //  Show headers if --headers flags was passed
 if (headers) {
-    console.log(inverse(bold(' Headers ')) + '\n')
+    console.log(blue(bold(' Headers ')) + '\n')
     for (const [header, value] of response.headers) {
         console.log(header, value)
     }
-    console.log('\n' + inverse(bold(' Response ')) + '\n')
+    console.log('\n' + blue(bold(' Response ')) + '\n')
 }
 
 //  Show response body
