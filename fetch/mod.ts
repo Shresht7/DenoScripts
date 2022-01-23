@@ -22,15 +22,24 @@ type Arguments = {
 
 /** Parse command-line arguments */
 function parseArguments(): Arguments {
-    let { headers, method, body, _ } = parse(Deno.args)
+    const { headers, method, body, _ } = parse(Deno.args, {
+        boolean: ['headers'],
+        string: ['method', 'body'],
+        alias: {
+            headers: ['h'],
+            method: ['m', 'verb'],
+            body: ['b', 'data', 'd']
+        },
+        default: {
+            method: 'GET'
+        }
+    })
 
     const url = _.shift() || prompt('URL: ')
     if (!url) {
         console.error('Invalid URL')
         Deno.exit(1)
     }
-
-    method = method || 'GET'
 
     return { url, headers, method, body } as Arguments
 }
