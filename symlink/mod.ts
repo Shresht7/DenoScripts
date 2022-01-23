@@ -27,8 +27,8 @@ async function parseArguments() {
     //  Parse command-line arguments
     const args = parse(Deno.args, {
         alias: {
-            from: ['src', 'origin', 'oldpath'],
-            to: ['target', 'dest', 'newpath'],
+            from: ['src', 'origin'],
+            to: ['target', 'dest'],
         },
         string: ['from', 'to'],
     }) as cliArguments
