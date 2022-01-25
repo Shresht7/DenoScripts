@@ -7,25 +7,19 @@ import { join } from 'https://deno.land/std@0.121.0/path/mod.ts'
 //  PARSE ARGUMENTS
 //  ---------------
 
-type Arguments = {
-    regex: RegExp,
-    replace: string,
-    flags: string,
-    path: string
-}
-
 /** Parse command-line arguments */
-function parseArguments(): Arguments {
-    let { regex, replace, flags, path, _ } = parse(Deno.args, {
-        boolean: [],
-        string: ['regex', 'replace', 'flags', 'path'],
-        alias: {},
+function parseArguments() {
+    let { regex, replace, path, flags, filter, _ } = parse(Deno.args, {
+        // boolean: [],
+        string: ['regex', 'replace', 'flags', 'path', 'filter'],
+        // alias: {},
         default: {
             flags: 'gm',
             path: '.'
         }
     })
 
+    //  Extract regex and replace from rest arguments if not provided using --regex and --replace
     regex = regex || _.shift()
     replace = replace || _.shift()
     if (!regex || !replace) {
@@ -33,30 +27,36 @@ function parseArguments(): Arguments {
         Deno.exit(1)
     }
 
+    //  Generate the actual Regular Expression from the provided string
     regex = new RegExp(regex, flags)
+    filter = filter ? new RegExp(filter, 'gim') : null
 
-    return { regex, replace, path } as Arguments
+    return { regex, replace, path, filter }
 }
 
-//  ---------------------------------------------
-const { regex, replace, path } = parseArguments()
-//  ---------------------------------------------
+//  -----------------------------------------------------
+const { regex, replace, path, filter } = parseArguments()
+//  -----------------------------------------------------
 
+//  =============
+//  REGEX REPLACE
+//  =============
+
+//  Check if the supplied path is a directory or a file
 const target = join(Deno.cwd(), path)
 const stats = await Deno.stat(target)
 
 if (stats.isDirectory) {
+    //  If a directory, then walk the directory and call makeSubstitutions on all valid children
     walkDir(target, (filePath: string) => {
+        if (filter && !filter.test(filePath)) { return }
         makeSubstitutions(filePath, regex, replace)
     })
 } else if (stats.isFile) {
+    if (filter && !filter.test(target)) { Deno.exit(0) }
+    //  If a file, then call makeSubstitutions on that file
     makeSubstitutions(target, regex, replace)
 }
-
-
-//  TODO: Allow filters for filePath?
-//  TODO: Improve log messages
-// TODO: --verbose flag to show every replacement
 
 //  ----------------
 //  HELPER FUNCTIONS
