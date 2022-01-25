@@ -79,6 +79,7 @@ if (stats.isDirectory) {
 async function makeSubstitutions(filePath: string, regex: RegExp, replace: string) {
     const originalContents = await Deno.readTextFile(filePath)
     const contents = originalContents.replace(regex, replace)
+    console.log('Performing RegEx-Replace in', filePath)
     Deno.writeTextFile(filePath, contents)
 }
 
