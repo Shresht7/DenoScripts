@@ -40,6 +40,14 @@ Fetches a URL
 deno run --allow-net fetch/mod.ts <URL>
 ```
 
+### [replace](/replace)
+
+Perform RegEx-Replace on all files in a directory
+
+```sh
+deno run --allow-read --allow-write replace/mod.ts <REGEX> <REPLACE>
+```
+
 ### [symlink](/symlink)
 
 Creates a symlink
