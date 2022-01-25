@@ -1,5 +1,6 @@
 //  Library
 import { parse } from 'https://deno.land/std@0.121.0/flags/mod.ts'
+import { copy, readerFromStreamReader } from 'https://deno.land/std@0.121.0/streams/conversion.ts'
 import { bold, green, red, yellow, blue, gray, inverse } from 'https://deno.land/x/std@0.121.0/fmt/colors.ts'
 
 //  ----------------
@@ -22,18 +23,23 @@ type Arguments = {
     /** Fetch request body */
     body?: BodyInit,
     /** Fetch URL */
-    url: string
+    url: string,
+    /** Output as JSON */
+    json?: boolean,
+    /** Output to stdout */
+    output?: boolean,
 }
 
 /** Parse command-line arguments */
 function parseArguments(): Arguments {
-    const { headers, method, body, _ } = parse(Deno.args, {
-        boolean: ['headers'],
+    const { headers, method, body, json, output, _ } = parse(Deno.args, {
+        boolean: ['headers', 'output', 'json'],
         string: ['method', 'body'],
         alias: {
             headers: ['h'],
-            method: ['m', 'verb'],
-            body: ['b', 'data', 'd']
+            method: ['m', 'verb', 'v'],
+            body: ['b', 'data', 'd'],
+            output: ['o', 'response', 'r']
         },
         default: {
             method: 'GET'
@@ -46,12 +52,12 @@ function parseArguments(): Arguments {
         Deno.exit(1)
     }
 
-    return { url, headers, method, body } as Arguments
+    return { url, headers, method, body, json, output } as Arguments
 }
 
-//  ---------------------------------------------------
-const { url, headers, method, body } = parseArguments()
-//  ---------------------------------------------------
+//  -----------------------------------------------------------------
+const { url, headers, method, body, json, output } = parseArguments()
+//  -----------------------------------------------------------------
 
 //  =============
 //  FETCH REQUEST
@@ -60,11 +66,12 @@ const { url, headers, method, body } = parseArguments()
 //  Make the fetch request to the given URL
 const response = await fetch(url.toString(), { method, body })
 
-//  If the content-type of the response is json, then parse as json; otherwise parse as text
-//  TODO: Handle blobs and streams
-const data = (response.headers.get('content-type')?.includes('json'))
-    ? response.json()
-    : response.text()
+//  If the output flag is set then write the response to stdout and exit
+if (output && response.body) {
+    const reader = readerFromStreamReader(response.body.getReader())
+    await copy(reader, Deno.stdout)
+    Deno.exit(0)
+}
 
 //  ------------
 //  SHOW RESULTS
@@ -100,4 +107,17 @@ if (headers) {
 }
 
 //  Show response body
-console.log(await data, '\n')
+
+//  If the content-type of the response is json, then parse as json
+if (response.headers.get('content-type')?.includes('json') || json) {
+    const data = response.json()
+    console.log(await data, '\n')
+    Deno.exit(0)
+}
+
+//  If not json, the output stream to stdout
+if (response.body) {
+    const reader = readerFromStreamReader(response.body.getReader())
+    await copy(reader, Deno.stdout)
+    console.log('\n')
+}
