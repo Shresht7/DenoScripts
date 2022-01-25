@@ -10,6 +10,10 @@ import { bgWhite, dim, black } from 'https://deno.land/x/std@0.121.0/fmt/colors.
 /** Symlink Type */
 type symlinkType = 'dir' | 'file'
 
+//  ===============
+//  PARSE ARGUMENTS
+//  ===============
+
 /** Shape of the parsed command-line arguments */
 type cliArguments = {
     from?: string,
@@ -17,14 +21,8 @@ type cliArguments = {
     _: string[]
 }
 
-//  ===============
-//  PARSE ARGUMENTS
-//  ===============
-
-/** Parse the provided command-line arguments */
+/** Parse the command-line arguments */
 async function parseArguments() {
-
-    //  Parse command-line arguments
     const args = parse(Deno.args, {
         alias: {
             from: ['src', 'origin'],
@@ -34,8 +32,8 @@ async function parseArguments() {
     }) as cliArguments
 
     //  Extract parameters
-    let from = args.from || args._.shift() || prompt(bgWhite('From: '), '')
-    const to = args.to || args._.shift() || prompt(bgWhite('To: '), '')
+    let from = args.from || args._.shift() || prompt(bgWhite(' From: '), '')
+    const to = args.to || args._.shift() || prompt(bgWhite(' To: '), '')
 
     //  Handle exceptions
     if (!from) {
