@@ -19,7 +19,7 @@ Read more about deno
 ### From the Web
 
 ```sh
-deno run --allow-read --allow-write replace/mod.ts <REGEX> <REPLACE>
+deno run --allow-read --allow-write  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/replace/mod.ts <REGEX> <REPLACE>
 ```
 
 ### Local Install
@@ -28,7 +28,7 @@ To install the script locally use
 [`deno install`](https://deno.land/manual/tools/script_installer)
 
 ```sh
-deno install --allow-read --allow-write replace/mod.ts
+deno install --allow-read --allow-write  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/replace/mod.ts
 ```
 
 then invoke the script as
@@ -46,5 +46,3 @@ replace <REGEX> <REPLACE>
 | `--flags`   |         | Specify the RegEx flags. Defaults to `gm`                                                                   |
 | `--path`    |         | Specifies the target directory or file to perform the regex-replace on                                      |
 | `--filter`  |         | Regular expression to filter and perform regex-replace on select files                                      |
-
-<!-- TODO: Substitute symlink/mod.ts with actual URL -->

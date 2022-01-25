@@ -37,7 +37,7 @@ and invoked directly.
 Fetches a URL
 
 ```sh
-deno run --allow-net fetch/mod.ts <URL>
+deno run --allow-net  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/fetch/mod.ts <URL>
 ```
 
 ### [replace](/replace)
@@ -45,7 +45,7 @@ deno run --allow-net fetch/mod.ts <URL>
 Perform RegEx-Replace on all files in a directory
 
 ```sh
-deno run --allow-read --allow-write replace/mod.ts <REGEX> <REPLACE>
+deno run --allow-read --allow-write  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/replace/mod.ts <REGEX> <REPLACE>
 ```
 
 ### [symlink](/symlink)
@@ -53,5 +53,5 @@ deno run --allow-read --allow-write replace/mod.ts <REGEX> <REPLACE>
 Creates a symlink
 
 ```sh
-deno run --allow-read --allow-write symlink/mod.ts --from here.txt --to there.txt
+deno run --allow-read --allow-write  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/symlink/mod.ts --from here.txt --to there.txt
 ```

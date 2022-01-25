@@ -19,7 +19,7 @@ Read more about deno
 ### From the Web
 
 ```sh
-deno run --allow-read --allow-write symlink/mod.ts --from here.txt --to there.txt
+deno run --allow-read --allow-write  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/symlink/mod.ts --from here.txt --to there.txt
 ```
 
 ### Local Install
@@ -28,7 +28,7 @@ To install the script locally use
 [`deno install`](https://deno.land/manual/tools/script_installer)
 
 ```sh
-deno install --allow-read --allow-write symlink/mod.ts
+deno install --allow-read --allow-write  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/symlink/mod.ts
 ```
 
 then invoke the script
@@ -43,5 +43,3 @@ symlink --from here.txt --to there.txt
 | -------- | -------------------- | ------------------------ |
 | `--from` | `--src`, `--origin`  | Source directory or file |
 | `--to`   | `--target`, `--dest` | Target directory or file |
-
-<!-- TODO: Substitute symlink/mod.ts with actual URL -->
