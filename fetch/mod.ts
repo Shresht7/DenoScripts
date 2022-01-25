@@ -1,6 +1,6 @@
 //  Library
 import { parse } from 'https://deno.land/std@0.121.0/flags/mod.ts'
-import { bold, green, red, yellow, blue, inverse } from 'https://deno.land/x/std@0.121.0/fmt/colors.ts'
+import { bold, green, red, yellow, blue, gray, inverse } from 'https://deno.land/x/std@0.121.0/fmt/colors.ts'
 
 //  ----------------
 //  HELPER FUNCTIONS
@@ -13,10 +13,15 @@ const between = (n: number, x: number, y: number) => x >= n && n < y
 //  PARSE ARGUMENTS
 //  ---------------
 
+/** Command-line arguments */
 type Arguments = {
+    /** Flag to show response headers */
     headers: boolean,
+    /** HTTP verb */
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+    /** Fetch request body */
     body?: BodyInit,
+    /** Fetch URL */
     url: string
 }
 
@@ -48,14 +53,15 @@ function parseArguments(): Arguments {
 const { url, headers, method, body } = parseArguments()
 //  ---------------------------------------------------
 
-//  -------------
+//  =============
 //  FETCH REQUEST
-//  -------------
+//  =============
 
 //  Make the fetch request to the given URL
 const response = await fetch(url.toString(), { method, body })
 
 //  If the content-type of the response is json, then parse as json; otherwise parse as text
+//  TODO: Handle blobs and streams
 const data = (response.headers.get('content-type')?.includes('json'))
     ? response.json()
     : response.text()
@@ -88,7 +94,7 @@ console.log('\n' + result + '\n')
 if (headers) {
     console.log(blue(bold(' Headers ')) + '\n')
     for (const [header, value] of response.headers) {
-        console.log(header, value)
+        console.log(gray(header + ': '), value)
     }
     console.log('\n' + blue(bold(' Response ')) + '\n')
 }
