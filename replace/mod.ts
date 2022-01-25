@@ -7,8 +7,16 @@ import { join } from 'https://deno.land/std@0.121.0/path/mod.ts'
 //  PARSE ARGUMENTS
 //  ---------------
 
+type Arguments = {
+    regex: RegExp,
+    replace: string,
+    path: string,
+    flags: string,
+    filter: RegExp | null
+}
+
 /** Parse command-line arguments */
-function parseArguments() {
+function parseArguments(): Arguments {
     let { regex, replace, path, flags, filter, _ } = parse(Deno.args, {
         // boolean: [],
         string: ['regex', 'replace', 'flags', 'path', 'filter'],
@@ -31,7 +39,7 @@ function parseArguments() {
     regex = new RegExp(regex, flags)
     filter = filter ? new RegExp(filter, 'gim') : null
 
-    return { regex, replace, path, filter }
+    return { regex, replace, path, filter } as Arguments
 }
 
 //  -----------------------------------------------------
