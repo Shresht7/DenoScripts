@@ -42,6 +42,43 @@ function parseArguments(): Arguments {
 const { regex, replace, path } = parseArguments()
 //  ---------------------------------------------
 
+const target = join(Deno.cwd(), path)
+const stats = await Deno.stat(target)
+
+if (stats.isDirectory) {
+    walkDir(target, (filePath: string) => {
+        makeSubstitutions(filePath, regex, replace)
+    })
+} else if (stats.isFile) {
+    makeSubstitutions(target, regex, replace)
+}
+
+
+//  TODO: Allow filters for filePath?
+//  TODO: Improve log messages
+// TODO: --verbose flag to show every replacement
+
+//  ----------------
+//  HELPER FUNCTIONS
+//  ----------------
+
+/**
+ * Makes regex-replace substitutions in the given file
+ * @param filePath Path to file
+ * @param regex Regular expression to match on
+ * @param replace Replacement string
+ */
+async function makeSubstitutions(filePath: string, regex: RegExp, replace: string) {
+    const originalContents = await Deno.readTextFile(filePath)
+    const contents = originalContents.replace(regex, replace)
+    Deno.writeTextFile(filePath, contents)
+}
+
+/**
+ * Walks a directory and executes the provided callback
+ * @param path Directory to walk
+ * @param cb Callback to execute for each file. The callback receives the filePath as an argument
+ */
 async function walkDir(path: string, cb: (filePath: string) => void) {
     for await (const dirEntry of Deno.readDir(path)) {
         dirEntry.isDirectory
@@ -49,14 +86,3 @@ async function walkDir(path: string, cb: (filePath: string) => void) {
             : cb(join(path, dirEntry.name))
     }
 }
-walkDir(join(Deno.cwd(), path), async (filePath: string) => {
-    console.log(filePath)
-    let contents = await Deno.readTextFile(filePath)
-    contents = contents.replace(regex, replace)
-    Deno.writeTextFile(filePath, contents)
-})
-
-//  TODO: Allow selection of a single file
-//  TODO: Allow filters for filePath?
-//  TODO: Improve log messages
-// TODO: --verbose flag to show every replacement
