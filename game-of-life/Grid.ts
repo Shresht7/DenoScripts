@@ -76,8 +76,8 @@ class Grid {
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
                 const posX = (this.columns + xPos + i) % this.columns   //  Track X position on the gird
-                const posY = (this.rows + yPos + j) % this.rows     //  Track Y position on the grid
-                count += this.GRID[posX][posY]      //  Add cell's value to the count
+                const posY = (this.rows + yPos + j) % this.rows         //  Track Y position on the grid
+                count += this.GRID[posX][posY]                          //  Add cell's value to the count
             }
         }
 
@@ -89,22 +89,22 @@ class Grid {
 
     /** Evolve the grid according to the rules of the game-of-life */
     evolve() {
-        const nextGen: number[][] = make2DArray(this.rows, this.columns)  //  Initialize a grid to store the state of the next generation
+        const nextGen: number[][] = make2DArray(this.rows, this.columns)    //  Initialize a grid to store the state of the next generation
 
         for (let c = 0; c < this.columns; c++) {
             for (let r = 0; r < this.rows; r++) {
 
-                const liveNeighbours = this.countNeighbours(c, r)   //  Get neighbour count
-                const state: CellState = this.GRID[c][r]           //  Track the current state of the cell
+                const liveNeighbours = this.countNeighbours(c, r)           //  Get neighbour count
+                const state: CellState = this.GRID[c][r]                    //  Track the current state of the cell
 
-                if (state === CellState.DEAD && liveNeighbours === 3) { //  if the cell is dead and has 3 live neighbours...
-                    nextGen[c][r] = CellState.ALIVE //  ...revive the cell
+                if (state === CellState.DEAD && liveNeighbours === 3) {     //  if the cell is dead and has 3 live neighbours...
+                    nextGen[c][r] = CellState.ALIVE                         //  ...revive the cell
 
-                } else if (state === CellState.ALIVE && (liveNeighbours < 2 || liveNeighbours > 3)) {   //  if the cell is alive but is subjected to under or overpopulation...
-                    nextGen[c][r] = CellState.DEAD  //  ...kill it
+                } else if (state === CellState.ALIVE && (liveNeighbours < 2 || liveNeighbours > 3)) {   //  if the cell is alive but is subjected to hostile conditions...
+                    nextGen[c][r] = CellState.DEAD                          //  ...kill it
 
-                } else {    //  Otherwise...
-                    nextGen[c][r] = this.GRID[c][r]     //  ...no change in state
+                } else {                                                    //  Otherwise...
+                    nextGen[c][r] = this.GRID[c][r]                         //  ...no change in state
                 }
 
             }
