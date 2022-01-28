@@ -56,6 +56,14 @@ Perform RegEx-Replace on all files in a directory
 deno run --allow-read --allow-write  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/replace/mod.ts <REGEX> <REPLACE>
 ```
 
+### [roll](/roll)
+
+Roll dice
+
+```sh
+deno run https://raw.githubusercontent.com/Shresht7/DenoScripts/main/roll/mod.ts <DICE>
+```
+
 ### [symlink](/symlink)
 
 Creates a symlink
