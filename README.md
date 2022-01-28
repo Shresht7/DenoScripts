@@ -40,6 +40,14 @@ Fetches a URL
 deno run --allow-net  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/fetch/mod.ts <URL>
 ```
 
+### [game-of-life](/game-of-life)
+
+Game of 🦕 life
+
+```sh
+deno run --unstable  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/game-of-life/mod.ts
+```
+
 ### [replace](/replace)
 
 Perform RegEx-Replace on all files in a directory
