@@ -34,12 +34,12 @@ and invoked directly.
 
 ### Utilities
 
-- [fetch](/fetch)
-- [replace](/replace)
-- [symlink](/symlink)
+- [fetch](/fetch) - Fetches a URL
+- [replace](/replace) - Performs RegEx-Replace
+- [symlink](/symlink) - Creates Symlinks
 
 ### Miscellaneous
 
-- [roll](/roll)
-- [game-of-life](/game-of-life)
-- [matrix-rain](/matrix-rain)
+- [roll](/roll) - Rolls dice
+- [game-of-life](/game-of-life) - Game of Life 🦕
+- [matrix-rain](/matrix-rain) - Matrix Rain Effect
