@@ -1,6 +1,5 @@
 //  Library
-import { parse } from 'https://deno.land/std@0.121.0/flags/mod.ts'
-// import { bold, green, red, yellow, blue, inverse } from 'https://deno.land/x/std@0.121.0/fmt/colors.ts'
+import { parse } from 'https://deno.land/std@0.123.0/flags/mod.ts'
 
 //  ---------------
 //  PARSE ARGUMENTS
@@ -28,8 +27,8 @@ function parseArguments(): Arguments {
         // }
     })
 
+    //  Extract count and sides from string
     const die = _.shift()?.toString() || 'd6'
-
     const match = die.match(/(\d*)d(\d+)/i)!
     const count = match?.[1] || 1
     const sides = match?.[2] || 6
@@ -54,7 +53,9 @@ function rollDice(dice: number, count: number) {
     return rolls
 }
 
+//  --------------------------------
 const rolls = rollDice(sides, count)
+//  --------------------------------
 
 function showDice(rolls: number[]) {
     if (advantage) {
@@ -66,7 +67,9 @@ function showDice(rolls: number[]) {
     }
 }
 
+//  -----------
 showDice(rolls)
+//  -----------
 
 //  ----------
 //  SHOW TOTAL
@@ -80,4 +83,6 @@ function showTotal(rolls: number[]) {
     console.log(`Total: ${getTotal(rolls)}`)
 }
 
+//  -------------------------
 if (sum) { showTotal(rolls) }
+//  -------------------------
