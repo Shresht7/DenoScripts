@@ -1,4 +1,3 @@
-
 //  Type Definitions
 //  ----------------
 
@@ -11,21 +10,14 @@ enum CellState {
 //  HELPER FUNCTIONS
 //  ================
 
-//  CLEAR SCREEN
-//  ------------
+/** Write to stdout */
+const write = (s: string) => Deno.stdout.write(new TextEncoder().encode(s))
 
-/** Clears the entire terminal */
-function clearScreen() {
-    Deno.stdout.write(new TextEncoder().encode('\u001b[2J'))
-}
-
-//  MOVE CURSOR
-//  -----------
+/** Clears the entire screen */
+const clearScreen = () => write('\u001b[2J')
 
 /** Move cursor to given row and column */
-function cursorMoveTo(r: number, c: number) {
-    return `\u001b[${r};${c}H`
-}
+const cursorMoveTo = (r: number, c: number) => `\u001b[${r};${c}H`
 
 //  MAKE 2D ARRAY
 //  -------------
@@ -126,7 +118,7 @@ class Grid {
                 }
             }
         }
-        Deno.stdout.write(new TextEncoder().encode(str))
+        write(str)
     }
 
 }
