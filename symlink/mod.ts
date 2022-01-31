@@ -1,39 +1,34 @@
 //  Library
-//  -------
-
-import { parse } from 'https://deno.land/std@0.121.0/flags/mod.ts'
-import { bgWhite, dim, black } from 'https://deno.land/x/std@0.121.0/fmt/colors.ts'
+import { parse } from 'https://deno.land/std@0.123.0/flags/mod.ts'
+import { bgWhite, dim, black } from 'https://deno.land/x/std@0.123.0/fmt/colors.ts'
 
 //  Type Definitions
-//  ----------------
-
-/** Symlink Type */
 type symlinkType = 'dir' | 'file'
 
 //  ===============
 //  PARSE ARGUMENTS
 //  ===============
 
-/** Shape of the parsed command-line arguments */
-type cliArguments = {
-    from?: string,
-    to?: string,
-    _: string[]
+/** Parsed command-line arguments */
+type Arguments = {
+    from: string,
+    to: string,
+    type: symlinkType
 }
 
 /** Parse the command-line arguments */
-async function parseArguments() {
-    const args = parse(Deno.args, {
+async function parseArguments(): Promise<Arguments> {
+    let { from, to, _ } = parse(Deno.args, {
         alias: {
             from: ['src', 'origin'],
             to: ['target', 'dest'],
         },
         string: ['from', 'to'],
-    }) as cliArguments
+    })
 
     //  Extract parameters
-    let from = args.from || args._.shift() || prompt(bgWhite(' From: '), '')
-    const to = args.to || args._.shift() || prompt(bgWhite(' To: '), '')
+    from = from || _.shift() || prompt(bgWhite(' From: '), '')
+    to = to || _.shift() || prompt(bgWhite(' To: '), '')
 
     //  Handle exceptions
     if (!from) {
