@@ -7,8 +7,13 @@ export const randomBetween = (min: number, max: number) => Math.floor((Math.rand
 /** Get a random element from an array */
 export const randomSelect = <T>(x: T[]): T => x[random(x.length)]
 
+export const write = (s: string) => Deno.stdout.write(new TextEncoder().encode(s))
+
 /** Clears the entire terminal */
-export const clearScreen = () => Deno.stdout.write(new TextEncoder().encode('\u001b[2J'))
+export const clearScreen = () => write('\u001b[2J')
 
 /** Move cursor to given row and column */
-export const cursorMoveTo = (r: number, c: number) => `\u001b[${r};${c}H`
+export const cursorMoveTo = (r: number, c: number) => write(`\u001b[${r};${c}H`)
+
+/** Color string with RGB */
+export const rgb = (str: string, [r, g, b]: [number, number, number]) => `\u001b[38;2;${r};${g};${b}m${str}\u001b[0m`

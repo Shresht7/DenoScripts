@@ -1,5 +1,5 @@
 //  Helpers
-import { random, randomSelect, cursorMoveTo } from './utils.ts'
+import { random, randomSelect, rgb, cursorMoveTo, write } from './utils.ts'
 
 //  Type Definitions
 import type { RGB, MatrixMode } from './types.ts'
@@ -82,8 +82,8 @@ export class MatrixEntity {
 
         if (this.isFirst) { this.color = [200, 255, 200] }  //  First entity in the stream has a brighter color
 
-        Deno.stdout.write(new TextEncoder().encode(cursorMoveTo(Math.floor(this.y), Math.floor(this.x))))
-        Deno.stdout.write(new TextEncoder().encode("\u001b[32m" + this.symbol + "\u001b[39m"))
+        cursorMoveTo(Math.floor(this.y), Math.floor(this.x))
+        write(rgb(this.symbol, this.color))
 
         if (this.frameCount % this.switchInterval === 0) { this.setSymbol() }       //  Switch symbols if frameCount exceeds switch interval
         this.frameCount++
