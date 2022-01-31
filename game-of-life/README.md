@@ -40,7 +40,7 @@ game-of-life
 
 | flag          | aliases | description                                    |
 | ------------- | ------- | ---------------------------------------------- |
-| `--character` | `-c`    | Character that represents one life. Default: 🦕 |
+| `--character` |         | Character that represents one life. Default: 🦕 |
 | `--fps`       | `-f`    | Frame-rate. Default 60                         |
 | `--rows`      | `-r`    | Number of rows                                 |
 | `--columns`   | `-c`    | Number of columns                              |

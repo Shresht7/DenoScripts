@@ -8,7 +8,6 @@ import Grid from './Grid.ts'
 let { character, fps, rows, columns } = parse(Deno.args, {
     string: ['character', 'fps', 'rows', 'columns'],
     alias: {
-        character: ['c'],
         fps: ['f'],
         rows: ['r'],
         columns: ['c']
@@ -20,9 +19,9 @@ let { character, fps, rows, columns } = parse(Deno.args, {
     }
 })
 
-rows = parseInt(rows)
-columns = parseInt(columns)
-fps = parseInt(fps)
+rows = typeof rows === 'string' ? parseInt(rows) : rows
+columns = typeof columns === 'string' ? parseInt(columns) : columns
+fps = typeof fps === 'string' ? parseInt(fps) : fps
 
 //  SETUP
 //  =====
