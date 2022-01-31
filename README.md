@@ -35,7 +35,6 @@ and invoked directly.
 ### Utilities
 
 - [fetch](/fetch) - Fetches a URL
-- [replace](/replace) - Performs RegEx-Replace
 - [symlink](/symlink) - Creates Symlinks
 
 ### Miscellaneous
