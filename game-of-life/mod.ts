@@ -5,7 +5,7 @@ import Grid from './Grid.ts'
 //  PARSE ARGUMENTS
 //  ---------------
 
-const { character, fps, rows, columns } = parse(Deno.args, {
+let { character, fps, rows, columns } = parse(Deno.args, {
     string: ['character', 'fps', 'rows', 'columns'],
     alias: {
         character: ['c'],
@@ -18,8 +18,11 @@ const { character, fps, rows, columns } = parse(Deno.args, {
         fps: 60,
         ...Deno.consoleSize(Deno.stdout.rid)
     }
-
 })
+
+rows = parseInt(rows)
+columns = parseInt(columns)
+fps = parseInt(fps)
 
 //  SETUP
 //  =====
