@@ -32,42 +32,14 @@ and invoked directly.
 
 ## Scripts
 
-### [fetch](/fetch)
+### Utilities
 
-Fetches a URL
+- [fetch](/fetch)
+- [replace](/replace)
+- [symlink](/symlink)
 
-```sh
-deno run --allow-net  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/fetch/mod.ts <URL>
-```
+### Miscellaneous
 
-### [game-of-life](/game-of-life)
-
-Game of 🦕 life
-
-```sh
-deno run --unstable  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/game-of-life/mod.ts
-```
-
-### [replace](/replace)
-
-Perform RegEx-Replace on all files in a directory
-
-```sh
-deno run --allow-read --allow-write  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/replace/mod.ts <REGEX> <REPLACE>
-```
-
-### [roll](/roll)
-
-Roll dice
-
-```sh
-deno run https://raw.githubusercontent.com/Shresht7/DenoScripts/main/roll/mod.ts <DICE>
-```
-
-### [symlink](/symlink)
-
-Creates a symlink
-
-```sh
-deno run --allow-read --allow-write  https://raw.githubusercontent.com/Shresht7/DenoScripts/main/symlink/mod.ts --from here.txt --to there.txt
-```
+- [roll](/roll)
+- [game-of-life](/game-of-life)
+- [matrix-rain](/matrix-rain)
