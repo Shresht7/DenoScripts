@@ -1,7 +1,7 @@
 //  Library
-import { parse } from 'https://deno.land/std@0.121.0/flags/mod.ts'
-import { copy, readerFromStreamReader } from 'https://deno.land/std@0.121.0/streams/conversion.ts'
-import { bold, green, red, yellow, blue, gray, inverse } from 'https://deno.land/x/std@0.121.0/fmt/colors.ts'
+import { parse } from 'https://deno.land/std@0.123.0/flags/mod.ts'
+import { copy, readerFromStreamReader } from 'https://deno.land/std@0.123.0/streams/conversion.ts'
+import { bold, green, red, yellow, blue, gray, inverse } from 'https://deno.land/x/std@0.123.0/fmt/colors.ts'
 
 //  ----------------
 //  HELPER FUNCTIONS
