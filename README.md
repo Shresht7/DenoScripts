@@ -6,17 +6,15 @@ An assortment of Deno-Scripts!
 
 ## Usage
 
-All of these scripts require [**Deno**](https://deno.land/) to be installed on
-your machine.
+All of these scripts require [**Deno**](https://deno.land/) to be installed on the machine.
 
-You can run these scripts directly from the web.
+The scripts can be run directly from the web
 
 ```sh
 deno run [...PERMISSIONS] <URL_TO_SCRIPT> [...ARGUMENTS]
 ```
 
-Scripts can also be [installed](https://deno.land/manual/tools/script_installer)
-locally
+Scripts can also be [installed](https://deno.land/manual/tools/script_installer) locally
 
 ```sh
 deno install [...PERMISSIONS] <URL_TO_SCRIPT> --name <SCRIPT_NAME>
@@ -32,13 +30,23 @@ and invoked directly.
 
 ## Scripts
 
-### Utilities
+### File-System
 
-- [fetch](/fetch) - Fetches a URL
-- [symlink](/symlink) - Creates Symlinks
+- [symlink](/file-system/symlink) - Creates Symlinks
+
+### Web
+
+- [fetch](/web/fetch) - Fetches a URL
+- [learnxinyminutes](/web/learnxinyminutes) - [Learn X in Y minutes](https://www.learnxinyminutes.com)
 
 ### Miscellaneous
 
-- [roll](/roll) - Rolls dice
-- [game-of-life](/game-of-life) - Game of Life 🦕
-- [matrix-rain](/matrix-rain) - Matrix Rain Effect
+- [roll](/miscellaneous/roll) - Rolls dice
+- [game-of-life](/miscellaneous/game-of-life) - Game of Life 🦕
+- [matrix-rain](/miscellaneous/matrix-rain) - Matrix Rain Effect
+
+---
+
+## 📑 License
+
+> [MIT License](./LICENSE)
